@@ -1,20 +1,6 @@
-import express, {
-  createServer,
-  logger,
-  cookieParser,
-  bodyParser,
-  methodOverride,
-  session,
-} from "express";
-import {
-  serializeUser,
-  deserializeUser,
-  use,
-  initialize,
-  session as _session,
-  authenticate,
-} from "passport";
-import { Strategy as PixivStrategy } from "passport-pixiv";
+let express = require("express"),
+  passport = require("passport"),
+  PixivStrategy = require("passport-pixiv").Strategy;
 
 let PIXIV_CLIENT_ID = "--insert-pixiv-client-id-here--";
 let PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
@@ -26,11 +12,11 @@ let PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
 //   the user by ID when deserializing.  However, since this example does not
 //   have a database of user records, the complete pixiv profile is serialized
 //   and deserialized.
-serializeUser(function (user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-deserializeUser(function (obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
@@ -38,7 +24,7 @@ deserializeUser(function (obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and pixiv
 //   profile), and invoke a callback with a user object.
-use(
+passport.use(
   new PixivStrategy(
     {
       clientID: PIXIV_CLIENT_ID,
@@ -58,21 +44,21 @@ use(
   )
 );
 
-let app = createServer();
+let app = express.createServer();
 
 // configure Express
 app.configure(function () {
   app.set("views", __dirname + "/views");
   app.set("view engine", "ejs");
-  app.use(logger());
-  app.use(cookieParser());
-  app.use(bodyParser());
-  app.use(methodOverride());
-  app.use(session({ secret: "keyboard cat" }));
+  app.use(express.logger());
+  app.use(express.cookieParser());
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(express.session({ secret: "keyboard cat" }));
   // Initialize Passport!  Also use passport.session() middleware, to support
   // persistent login sessions (recommended).
-  app.use(initialize());
-  app.use(_session());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(express.static(__dirname + "/public"));
 });
@@ -94,7 +80,7 @@ app.get("/login", function (req, res) {
 //   request.  The first step in pixiv authentication will involve redirecting
 //   the user to pixiv.net.  After authorization, pixiv will redirect the user
 //   back to this application at /auth/pixiv/callback
-app.get("/auth/pixiv", authenticate("pixiv"), function (req, res) {
+app.get("/auth/pixiv", passport.authenticate("pixiv"), function (req, res) {
   // The request will be redirected to pixiv for authentication, so this
   // function will not be called.
 });
@@ -106,7 +92,7 @@ app.get("/auth/pixiv", authenticate("pixiv"), function (req, res) {
 //   which, in this example, will redirect the user to the home page.
 app.get(
   "/auth/pixiv/callback",
-  authenticate("pixiv", { failureRedirect: "/login" }),
+  passport.authenticate("pixiv", { failureRedirect: "/login" }),
   function (req, res) {
     res.redirect("/");
   }
