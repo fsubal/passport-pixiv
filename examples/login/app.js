@@ -1,6 +1,5 @@
 let express = require("express"),
   passport = require("passport"),
-  util = require("util"),
   PixivStrategy = require("passport-pixiv").Strategy;
 
 let PIXIV_CLIENT_ID = "--insert-pixiv-client-id-here--";

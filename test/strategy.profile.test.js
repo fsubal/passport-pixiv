@@ -15,10 +15,10 @@ describe("Strategy#userProfile", function () {
 
   // mock
   strategy._oauth2.get = function (url, accessToken, callback) {
-    if (url != "https://public-api.secure.pixiv.net/v1/me.json") {
+    if (url !== "https://public-api.secure.pixiv.net/v1/me.json") {
       return callback(new Error("wrong url argument"));
     }
-    if (accessToken != "token") {
+    if (accessToken !== "token") {
       return callback(new Error("wrong token argument"));
     }
 
