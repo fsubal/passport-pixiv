@@ -13,13 +13,12 @@ unobtrusively integrated into any application or framework that supports
 
     $ npm install passport-pixiv
 
-
 ## Usage
 
 #### Configure Strategy
 
 The pixiv authentication strategy authenticates users using a pixiv account
-and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts
+and OAuth 2.0 tokens. The strategy requires a `verify` callback, which accepts
 these credentials and calls `done` providing a user, as well as `options`
 specifying a client ID, client secret, and callback URL.
 
@@ -62,22 +61,14 @@ For a complete, working example, refer to the [login example](https://github.com
     $ npm install --dev
     $ make test
 
-[![Build Status](https://secure.travis-ci.org/pixiv/passport-pixiv.svg?branch=master)](https://travis-ci.org/pixiv/passport-pixiv)
-
-[![Coverage Status](https://img.shields.io/coveralls/pixiv/passport-pixiv.svg)](https://coveralls.io/r/pixiv/passport-pixiv)
-
-[![Dependency Status](https://david-dm.org/pixiv/passport-pixiv.svg)](https://david-dm.org/pixiv/passport-pixiv)
-
-
 ## Credits
 
-  - [geta6](http://github.com/geta6)
+- [geta6](http://github.com/geta6)
 
 ## Thanks
 
-  - [Jared Hanson](http://github.com/jaredhanson)
+- [Jared Hanson](http://github.com/jaredhanson)
 
 ## License
 
 [The MIT License](https://raw.githubusercontent.com/pixiv/passport-pixiv/master/LICENSE)
-
