@@ -1,3 +1,3 @@
-var chai = require('chai');
+let chai = require('chai');
 
 global.expect = chai.expect;

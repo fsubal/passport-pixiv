@@ -1,67 +1,76 @@
 /* global describe, it, expect */
 /* jshint expr: true */
 
-var PixivStrategy = require('../lib/strategy');
+let PixivStrategy = require("../lib/strategy");
 
-
-describe('Strategy', function() {
-
-  var strategy = new PixivStrategy({
-      clientID: 'ABC123',
-      clientSecret: 'secret'
+describe("Strategy", function () {
+  let strategy = new PixivStrategy(
+    {
+      clientID: "ABC123",
+      clientSecret: "secret",
     },
-    function() {});
+    function () {}
+  );
 
-  it('should be named pixiv', function() {
-    expect(strategy.name).to.equal('pixiv');
+  it("should be named pixiv", function () {
+    expect(strategy.name).to.equal("pixiv");
   });
 
-  it('should have default user agent', function() {
-    expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('passport-pixiv');
+  it("should have default user agent", function () {
+    expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
+      "passport-pixiv"
+    );
   });
 
-
-  describe('constructed with user agent option', function() {
-
-    var strategy = new PixivStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret',
-        userAgent: 'example.com'
+  describe("constructed with user agent option", function () {
+    let strategy = new PixivStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret",
+        userAgent: "example.com",
       },
-      function() {});
+      function () {}
+    );
 
-    it('should have default user agent', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.com');
+    it("should have default user agent", function () {
+      expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
+        "example.com"
+      );
     });
   });
 
-  describe('constructed with custom headers including user agent', function() {
-
-    var strategy = new PixivStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret',
-        customHeaders: { 'User-Agent': 'example.net' }
+  describe("constructed with custom headers including user agent", function () {
+    let strategy = new PixivStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret",
+        customHeaders: { "User-Agent": "example.net" },
       },
-      function() {});
+      function () {}
+    );
 
-    it('should have default user agent', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.net');
+    it("should have default user agent", function () {
+      expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
+        "example.net"
+      );
     });
   });
 
-  describe('constructed with both custom headers including user agent and user agent option', function() {
-
-    var strategy = new PixivStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret',
-        customHeaders: { 'User-Agent': 'example.org' },
-        userAgent: 'example.net'
+  describe("constructed with both custom headers including user agent and user agent option", function () {
+    let strategy = new PixivStrategy(
+      {
+        clientID: "ABC123",
+        clientSecret: "secret",
+        customHeaders: { "User-Agent": "example.org" },
+        userAgent: "example.net",
       },
-      function() {});
+      function () {}
+    );
 
-    it('should have default user agent', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.org');
+    it("should have default user agent", function () {
+      expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
+        "example.org"
+      );
     });
   });
-
 });
