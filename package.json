@@ -35,14 +35,16 @@
   "devDependencies": {
     "chai": "1.x.x",
     "eslint": "^8.23.1",
-    "mocha": "1.x.x"
+    "mocha": "1.x.x",
+    "prettier": "^2.7.1"
   },
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
     "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "fmt": "prettier . --write"
   },
   "packageManager": "yarn@3.2.3"
 }
