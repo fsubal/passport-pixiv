@@ -1,6 +1,6 @@
 {
   "env": {
-    "browser": true,
+    "node": true,
     "commonjs": true,
     "es2021": true
   },
@@ -11,6 +11,15 @@
   },
   "rules": {
     "no-var": 2,
-    "eqeqeq": 2
+    "eqeqeq": 2,
+    "no-unused-vars": [
+      2,
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
   }
 }

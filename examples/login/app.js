@@ -80,7 +80,7 @@ app.get("/login", function (req, res) {
 //   request.  The first step in pixiv authentication will involve redirecting
 //   the user to pixiv.net.  After authorization, pixiv will redirect the user
 //   back to this application at /auth/pixiv/callback
-app.get("/auth/pixiv", passport.authenticate("pixiv"), function (req, res) {
+app.get("/auth/pixiv", passport.authenticate("pixiv"), function (_req, _res) {
   // The request will be redirected to pixiv for authentication, so this
   // function will not be called.
 });
