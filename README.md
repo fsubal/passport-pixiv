@@ -58,16 +58,17 @@ For a complete, working example, refer to the [login example](https://github.com
 
 ## Tests
 
-    $ npm install --dev
-    $ make test
+    $ yarn
+    $ yarn test
 
 ## Credits
 
-- [geta6](http://github.com/geta6)
+- [geta6](https://github.com/geta6)
+- [fsubal](https://github.com/fsubal)
 
 ## Thanks
 
-- [Jared Hanson](http://github.com/jaredhanson)
+- [Jared Hanson](https://github.com/jaredhanson)
 
 ## License
 
