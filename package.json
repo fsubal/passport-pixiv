@@ -33,9 +33,9 @@
     "passport-oauth2": "1.x.x"
   },
   "devDependencies": {
-    "chai": "1.x.x",
+    "chai": "^4.3.6",
     "eslint": "^8.23.1",
-    "mocha": "1.x.x",
+    "mocha": "^10.0.0",
     "prettier": "^2.7.1"
   },
   "engines": {
