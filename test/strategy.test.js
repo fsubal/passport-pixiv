@@ -1,7 +1,7 @@
-/* global describe, it, expect */
-/* jshint expr: true */
+/* global describe, it */
 
-let PixivStrategy = require("../lib/strategy");
+const { expect } = require("chai");
+const PixivStrategy = require("../lib/strategy");
 
 describe("Strategy", function () {
   let strategy = new PixivStrategy(
@@ -17,6 +17,7 @@ describe("Strategy", function () {
   });
 
   it("should have default user agent", function () {
+    // @ts-expect-error
     expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
       "passport-pixiv"
     );
@@ -33,6 +34,7 @@ describe("Strategy", function () {
     );
 
     it("should have default user agent", function () {
+      // @ts-expect-error
       expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
         "example.com"
       );
@@ -50,6 +52,7 @@ describe("Strategy", function () {
     );
 
     it("should have default user agent", function () {
+      // @ts-expect-error
       expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
         "example.net"
       );
@@ -68,6 +71,7 @@ describe("Strategy", function () {
     );
 
     it("should have default user agent", function () {
+      // @ts-expect-error
       expect(strategy._oauth2._customHeaders["User-Agent"]).to.equal(
         "example.org"
       );

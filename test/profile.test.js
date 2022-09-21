@@ -1,21 +1,15 @@
-/* global describe, it, expect, before */
-/* jshint expr: true */
+/* global describe, it, before */
 
-let fs = require("fs"),
-  parse = require("../lib/profile").parse;
+const { expect } = require("chai");
+const parse = require("../lib/profile").parse;
 
-describe("profile.parse", function () {
-  describe("example profile", function () {
+describe("profile.parse", () => {
+  describe("example profile", () => {
     let profile;
 
-    before(function (done) {
-      fs.readFile("test/data/example.json", "utf8", function (err, data) {
-        if (err) {
-          return done(err);
-        }
-        profile = parse(data);
-        done();
-      });
+    before((done) => {
+      profile = parse(require("./data/example.json"));
+      done();
     });
 
     it("should parse profile", function () {
