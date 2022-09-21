@@ -1,10 +1,9 @@
 /* global describe, it,  before */
 
-const { expect } = require("chai");
 const fs = require("fs");
 const PixivStrategy = require("../lib/strategy");
 
-describe("Strategy#userProfile", function () {
+describe("Strategy#userProfile", () => {
   let strategy = new PixivStrategy(
     {
       clientID: "ABC123",
@@ -31,10 +30,10 @@ describe("Strategy#userProfile", function () {
     });
   };
 
-  describe("loading profile", function () {
+  describe("loading profile", () => {
     let profile;
 
-    before(function (done) {
+    beforeAll(done => {
       strategy.userProfile("token", function (err, p) {
         if (err) {
           return done(err);
@@ -44,28 +43,28 @@ describe("Strategy#userProfile", function () {
       });
     });
 
-    it("should parse profile", function () {
-      expect(profile.provider).to.equal("pixiv");
+    it("should parse profile", () => {
+      expect(profile.provider).toBe("pixiv");
 
-      expect(profile.id).to.equal("11");
-      expect(profile.username).to.equal("pixiv");
-      expect(profile.displayName).to.equal("pixiv事務局");
-      expect(profile.photos).to.have.length(2);
+      expect(profile.id).toBe("11");
+      expect(profile.username).toBe("pixiv");
+      expect(profile.displayName).toBe("pixiv事務局");
+      expect(profile.photos).toHaveLength(2);
     });
 
     it.skip("should set raw property", function () {
-      expect(profile._raw).to.be.a("string");
+      expect(typeof profile._raw).toBe("string");
     });
 
     it.skip("should set json property", function () {
-      expect(profile._json).to.be.an("object");
+      expect(profile._json).toBeInstanceOf(Object);
     });
   });
 
-  describe("encountering an error", function () {
+  describe("encountering an error", () => {
     let err, profile;
 
-    before(function (done) {
+    beforeAll(done => {
       strategy.userProfile("wrong-token", function (e, p) {
         err = e;
         profile = p;
@@ -73,14 +72,14 @@ describe("Strategy#userProfile", function () {
       });
     });
 
-    it("should error", function () {
-      expect(err).to.be.an.instanceOf(Error);
-      expect(err.constructor.name).to.equal("InternalOAuthError");
-      expect(err.message).to.equal("Failed to fetch user profile");
+    it("should error", () => {
+      expect(err).toBeInstanceOf(Error);
+      expect(err.constructor.name).toBe("InternalOAuthError");
+      expect(err.message).toBe("Failed to fetch user profile");
     });
 
-    it("should not load profile", function () {
-      expect(profile).to.be.undefined;
+    it("should not load profile", () => {
+      expect(profile).toBeUndefined();
     });
   });
 });

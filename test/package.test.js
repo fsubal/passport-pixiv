@@ -1,15 +1,12 @@
-/* global describe, it */
-
-const { expect } = require("chai");
 const strategy = require("..");
 
-describe("passport-pixiv", function () {
-  it("should export Strategy constructor directly from package", function () {
-    expect(strategy).to.be.a("function");
+describe("passport-pixiv", () => {
+  it("should export Strategy constructor directly from package", () => {
+    expect(strategy).toBeInstanceOf(Function);
     // expect(strategy).to.equal(strategy.Strategy);
   });
 
-  it("should export Strategy constructor", function () {
-    expect(strategy.Strategy).to.be.a("function");
+  it("should export Strategy constructor", () => {
+    expect(strategy.Strategy).toBeInstanceOf(Function);
   });
 });
