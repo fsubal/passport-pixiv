@@ -1,6 +1,4 @@
-/* global describe, it */
-
-const PixivStrategy = require("../lib/strategy");
+import PixivStrategy from "../lib/strategy";
 
 describe("Strategy", () => {
   let strategy = new PixivStrategy(
@@ -17,7 +15,9 @@ describe("Strategy", () => {
 
   it("should have default user agent", () => {
     // @ts-expect-error
-    expect(strategy._oauth2._customHeaders["User-Agent"]).toBe("passport-pixiv");
+    expect(strategy._oauth2._customHeaders["User-Agent"]).toBe(
+      "passport-pixiv"
+    );
   });
 
   describe("constructed with user agent option", () => {

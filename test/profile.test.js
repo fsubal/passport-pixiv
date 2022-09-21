@@ -1,4 +1,4 @@
-const parse = require("../lib/profile").parse;
+import { parse } from "../lib/profile";
 
 describe("profile.parse", () => {
   describe("example profile", () => {

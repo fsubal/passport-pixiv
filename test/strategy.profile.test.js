@@ -1,7 +1,5 @@
-/* global describe, it,  before */
-
-const fs = require("fs");
-const PixivStrategy = require("../lib/strategy");
+import { readFile } from "fs";
+import PixivStrategy from "../lib/strategy";
 
 describe("Strategy#userProfile", () => {
   let strategy = new PixivStrategy(
@@ -22,7 +20,7 @@ describe("Strategy#userProfile", () => {
       return callback({ statusCode: 400 });
     }
 
-    fs.readFile("test/data/example.json", "utf8", function (err, body) {
+    readFile("test/data/example.json", "utf8", function (err, body) {
       if (err) {
         return callback({ statusCode: 500 });
       }
@@ -33,7 +31,7 @@ describe("Strategy#userProfile", () => {
   describe("loading profile", () => {
     let profile;
 
-    beforeAll(done => {
+    beforeAll((done) => {
       strategy.userProfile("token", function (err, p) {
         if (err) {
           return done(err);
@@ -64,7 +62,7 @@ describe("Strategy#userProfile", () => {
   describe("encountering an error", () => {
     let err, profile;
 
-    beforeAll(done => {
+    beforeAll((done) => {
       strategy.userProfile("wrong-token", function (e, p) {
         err = e;
         profile = p;

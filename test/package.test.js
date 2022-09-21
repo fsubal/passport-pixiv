@@ -1,4 +1,4 @@
-const strategy = require("..");
+import strategy, { Strategy } from "..";
 
 describe("passport-pixiv", () => {
   it("should export Strategy constructor directly from package", () => {
@@ -7,6 +7,6 @@ describe("passport-pixiv", () => {
   });
 
   it("should export Strategy constructor", () => {
-    expect(strategy.Strategy).toBeInstanceOf(Function);
+    expect(Strategy).toBeInstanceOf(Function);
   });
 });
