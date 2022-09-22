@@ -2,17 +2,17 @@ import { readFile } from "fs";
 import PixivStrategy from "../lib/strategy.js";
 
 describe("Strategy#userProfile", () => {
-  let strategy = new PixivStrategy(
+  const strategy = new PixivStrategy(
     {
       clientID: "ABC123",
       clientSecret: "secret",
     },
-    function () {}
+    () => {}
   );
 
   // mock
   // @ts-expect-error
-  strategy._oauth2.get = function (url, accessToken, callback) {
+  strategy._oauth2.get = (url, accessToken, callback) => {
     if (url !== "https://public-api.secure.pixiv.net/v1/me.json") {
       return callback({ statusCode: 400 });
     }
@@ -20,7 +20,7 @@ describe("Strategy#userProfile", () => {
       return callback({ statusCode: 400 });
     }
 
-    readFile("test/data/example.json", "utf8", function (err, body) {
+    readFile("test/data/example.json", "utf8", (err, body) => {
       if (err) {
         return callback({ statusCode: 500 });
       }
@@ -32,7 +32,7 @@ describe("Strategy#userProfile", () => {
     let profile;
 
     beforeAll((done) => {
-      strategy.userProfile("token", function (err, p) {
+      strategy.userProfile("token", (err, p) => {
         if (err) {
           return done(err);
         }
@@ -50,11 +50,11 @@ describe("Strategy#userProfile", () => {
       expect(profile.photos).toHaveLength(2);
     });
 
-    it.skip("should set raw property", function () {
+    it.skip("should set raw property", () => {
       expect(typeof profile._raw).toBe("string");
     });
 
-    it.skip("should set json property", function () {
+    it.skip("should set json property", () => {
       expect(profile._json).toBeInstanceOf(Object);
     });
   });
@@ -63,7 +63,7 @@ describe("Strategy#userProfile", () => {
     let err, profile;
 
     beforeAll(() => {
-      strategy.userProfile("wrong-token", function (e, p) {
+      strategy.userProfile("wrong-token", (e, p) => {
         err = e;
         profile = p;
       });

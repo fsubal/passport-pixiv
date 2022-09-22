@@ -40,7 +40,13 @@ passport.use(
       clientSecret: PIXIV_CLIENT_SECRET,
       callbackURL: "http://127.0.0.1:3000/auth/pixiv/callback",
     },
-    (accessToken, refreshToken, profile, done) => {
+    /**
+     * @param {string} _accessToken
+     * @param {string} _refreshToken
+     * @param {unknown} profile
+     * @param {(err: unknown, res: unknown) => void} done
+     */
+    (_accessToken, _refreshToken, profile, done) => {
       // asynchronous verification, for effect...
       process.nextTick(() => {
         // To keep the example simple, the user's pixiv profile is returned to
@@ -106,7 +112,7 @@ app.get("/auth/pixiv", passport.authenticate("pixiv"), (_req, _res) => {
 app.get(
   "/auth/pixiv/callback",
   passport.authenticate("pixiv", { failureRedirect: "/login" }),
-  (req, res) => {
+  (_req, res) => {
     res.redirect("/");
   }
 );

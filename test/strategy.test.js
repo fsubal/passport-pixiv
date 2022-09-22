@@ -1,12 +1,12 @@
 import PixivStrategy from "../lib/strategy.js";
 
 describe("Strategy", () => {
-  let strategy = new PixivStrategy(
+  const strategy = new PixivStrategy(
     {
       clientID: "ABC123",
       clientSecret: "secret",
     },
-    function () {}
+    () => {}
   );
 
   it("should be named pixiv", () => {
@@ -21,13 +21,13 @@ describe("Strategy", () => {
   });
 
   describe("constructed with user agent option", () => {
-    let strategy = new PixivStrategy(
+    const strategy = new PixivStrategy(
       {
         clientID: "ABC123",
         clientSecret: "secret",
         userAgent: "example.com",
       },
-      function () {}
+      () => {}
     );
 
     it("should have default user agent", () => {
@@ -37,13 +37,13 @@ describe("Strategy", () => {
   });
 
   describe("constructed with custom headers including user agent", () => {
-    let strategy = new PixivStrategy(
+    const strategy = new PixivStrategy(
       {
         clientID: "ABC123",
         clientSecret: "secret",
         customHeaders: { "User-Agent": "example.net" },
       },
-      function () {}
+      () => {}
     );
 
     it("should have default user agent", () => {
@@ -53,14 +53,14 @@ describe("Strategy", () => {
   });
 
   describe("constructed with both custom headers including user agent and user agent option", () => {
-    let strategy = new PixivStrategy(
+    const strategy = new PixivStrategy(
       {
         clientID: "ABC123",
         clientSecret: "secret",
         customHeaders: { "User-Agent": "example.org" },
         userAgent: "example.net",
       },
-      function () {}
+      () => {}
     );
 
     it("should have default user agent", () => {
