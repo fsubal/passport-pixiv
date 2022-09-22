@@ -62,11 +62,10 @@ describe("Strategy#userProfile", () => {
   describe("encountering an error", () => {
     let err, profile;
 
-    beforeAll((done) => {
+    beforeAll(() => {
       strategy.userProfile("wrong-token", function (e, p) {
         err = e;
         profile = p;
-        done();
       });
     });
 

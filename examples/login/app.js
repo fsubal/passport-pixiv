@@ -1,9 +1,15 @@
-let express = require("express"),
-  passport = require("passport"),
-  PixivStrategy = require("passport-pixiv").Strategy;
+const express = require("express");
+const logger = require("morgan");
+const methodOverride = require("method-override");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-let PIXIV_CLIENT_ID = "--insert-pixiv-client-id-here--";
-let PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
+const passport = require("passport");
+const PixivStrategy = require("../../lib/index").PixivStrategy;
+
+const PIXIV_CLIENT_ID = "--insert-pixiv-client-id-here--";
+const PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -44,24 +50,24 @@ passport.use(
   )
 );
 
-let app = express.createServer();
+const app = express();
 
 // configure Express
-app.configure(function () {
-  app.set("views", __dirname + "/views");
-  app.set("view engine", "ejs");
-  app.use(express.logger());
-  app.use(express.cookieParser());
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(express.session({ secret: "keyboard cat" }));
-  // Initialize Passport!  Also use passport.session() middleware, to support
-  // persistent login sessions (recommended).
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
-  app.use(express.static(__dirname + "/public"));
-});
+app.set("views", __dirname + "/views");
+app.set("view engine", "ejs");
+app.use(logger("dev"));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
+app.use(session({ secret: "keyboard cat" }));
+
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(express.static(__dirname + "/public"));
 
 app.get("/", function (req, res) {
   res.render("index", { user: req.user });
@@ -98,8 +104,8 @@ app.get(
   }
 );
 
-app.get("/logout", function (req, res) {
-  req.logout();
+app.get("/logout", function (req, res, next) {
+  req.logout(next);
   res.redirect("/");
 });
 

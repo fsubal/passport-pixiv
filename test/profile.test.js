@@ -1,12 +1,11 @@
-import { parse } from "../lib/profile";
+import * as Profile from "../lib/profile";
 
 describe("profile.parse", () => {
   describe("example profile", () => {
     let profile;
 
-    beforeAll((done) => {
-      profile = parse(require("./data/example.json"));
-      done();
+    beforeAll(() => {
+      profile = Profile.parse(require("./data/example.json"));
     });
 
     it("should parse profile", () => {

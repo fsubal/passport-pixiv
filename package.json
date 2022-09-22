@@ -28,9 +28,22 @@
       "url": "http://www.opensource.org/licenses/MIT"
     }
   ],
+  "workspaces": [
+    "lib",
+    "examples/login"
+  ],
   "main": "./lib",
-  "babel":  {
-    "presets": [["@babel/preset-env", { "targets": {"node": "current"}}]]
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
   },
   "dependencies": {
     "passport-oauth2": "1.x.x"

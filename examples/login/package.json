@@ -2,9 +2,16 @@
   "name": "passport-pixiv-examples-login",
   "version": "0.0.0",
   "dependencies": {
-    "express": ">= 0.0.0",
-    "ejs": ">= 0.0.0",
-    "passport": ">= 0.0.0",
-    "passport-pixiv": "git://github.com/geta6/passport-pixiv.git"
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "method-override": "^3.0.0",
+    "morgan": "^1.10.0",
+    "passport": "^0.6.0"
+  },
+  "scripts": {
+    "dev": "node app.js"
   }
 }
