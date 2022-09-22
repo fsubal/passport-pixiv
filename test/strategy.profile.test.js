@@ -1,5 +1,5 @@
 import { readFile } from "fs";
-import PixivStrategy from "../lib/strategy";
+import PixivStrategy from "../lib/strategy.js";
 
 describe("Strategy#userProfile", () => {
   let strategy = new PixivStrategy(

@@ -1,4 +1,4 @@
-import * as Profile from "../lib/profile";
+import * as Profile from "../lib/profile.js";
 
 describe("profile.parse", () => {
   describe("example profile", () => {

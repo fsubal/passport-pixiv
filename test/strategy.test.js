@@ -1,4 +1,4 @@
-import PixivStrategy from "../lib/strategy";
+import PixivStrategy from "../lib/strategy.js";
 
 describe("Strategy", () => {
   let strategy = new PixivStrategy(
