@@ -31,13 +31,15 @@ describe("Strategy#userProfile", () => {
   describe("loading profile", () => {
     let profile;
 
-    beforeAll((done) => {
-      strategy.userProfile("token", (err, p) => {
-        if (err) {
-          return done(err);
-        }
-        profile = p;
-        done();
+    beforeAll(() => {
+      return new Promise((resolve, reject) => {
+        strategy.userProfile("token", (err, p) => {
+          if (err) {
+            return reject(err);
+          }
+          profile = p;
+          resolve();
+        });
       });
     });
 
@@ -48,14 +50,6 @@ describe("Strategy#userProfile", () => {
       expect(profile.username).toBe("pixiv");
       expect(profile.displayName).toBe("pixiv事務局");
       expect(profile.photos).toHaveLength(2);
-    });
-
-    it.skip("should set raw property", () => {
-      expect(typeof profile._raw).toBe("string");
-    });
-
-    it.skip("should set json property", () => {
-      expect(profile._json).toBeInstanceOf(Object);
     });
   });
 
