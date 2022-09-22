@@ -7,6 +7,7 @@ import methodOverride from "method-override";
 import session from "express-session";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import expressLayouts from "express-ejs-layouts";
 
 import passport from "passport";
 import { PixivStrategy } from "../../lib/index.js";
@@ -81,6 +82,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + "/public"));
+app.use(expressLayouts);
 
 app.get("/", (req, res) => {
   res.render("index", { user: req.user });
