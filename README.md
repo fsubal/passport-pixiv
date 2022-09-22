@@ -64,7 +64,7 @@ app.get(
 
 ## Examples
 
-For a complete, working example, refer to the [login example](https://github.com/pixiv/passport-pixiv/tree/master/examples/login).
+For a complete, working example, refer to the [login example](passport-pixiv/tree/master/examples/login).
 
 ## Tests
 
