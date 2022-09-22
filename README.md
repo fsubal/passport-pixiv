@@ -11,7 +11,9 @@ unobtrusively integrated into any application or framework that supports
 
 ## Install
 
-    $ npm install passport-pixiv
+```
+$ npm install passport-pixiv
+```
 
 ## Usage
 
@@ -22,17 +24,22 @@ and OAuth 2.0 tokens. The strategy requires a `verify` callback, which accepts
 these credentials and calls `done` providing a user, as well as `options`
 specifying a client ID, client secret, and callback URL.
 
-    passport.use(new PixivStrategy({
-        clientID: PIXIV_CLIENT_ID,
-        clientSecret: PIXIV_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/pixiv/callback"
-      },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ pixivId: profile.id }, function (err, user) {
-          return done(err, user);
-        });
-      }
-    ));
+```js
+passport.use(
+  new PixivStrategy(
+    {
+      clientID: PIXIV_CLIENT_ID,
+      clientSecret: PIXIV_CLIENT_SECRET,
+      callbackURL: "http://127.0.0.1:3000/auth/pixiv/callback",
+    },
+    function (accessToken, refreshToken, profile, done) {
+      User.findOrCreate({ pixivId: profile.id }, function (err, user) {
+        return done(err, user);
+      });
+    }
+  )
+);
+```
 
 #### Authenticate Requests
 
@@ -42,15 +49,18 @@ authenticate requests.
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/pixiv',
-      passport.authenticate('pixiv'));
+```js
+app.get("/auth/pixiv", passport.authenticate("pixiv"));
 
-    app.get('/auth/pixiv/callback',
-      passport.authenticate('pixiv', { failureRedirect: '/login' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      });
+app.get(
+  "/auth/pixiv/callback",
+  passport.authenticate("pixiv", { failureRedirect: "/login" }),
+  function (req, res) {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+  }
+);
+```
 
 ## Examples
 
@@ -58,8 +68,10 @@ For a complete, working example, refer to the [login example](https://github.com
 
 ## Tests
 
-    $ yarn
-    $ yarn test
+```
+$ yarn
+$ yarn test
+```
 
 ## Credits
 
