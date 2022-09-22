@@ -1,12 +1,15 @@
-const express = require("express");
-const logger = require("morgan");
-const methodOverride = require("method-override");
-const session = require("express-session");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
+import { fileURLToPath } from "node:url";
+import path from "path";
 
-const passport = require("passport");
-const PixivStrategy = require("../../lib/index").PixivStrategy;
+import express from "express";
+import logger from "morgan";
+import methodOverride from "method-override";
+import session from "express-session";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+
+import passport from "passport";
+import { PixivStrategy } from "../../lib/index.js";
 
 const PIXIV_CLIENT_ID = "--insert-pixiv-client-id-here--";
 const PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
@@ -18,11 +21,11 @@ const PIXIV_CLIENT_SECRET = "--insert-pixiv-client-secret-here--";
 //   the user by ID when deserializing.  However, since this example does not
 //   have a database of user records, the complete pixiv profile is serialized
 //   and deserialized.
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
 
-passport.deserializeUser(function (obj, done) {
+passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
@@ -37,9 +40,9 @@ passport.use(
       clientSecret: PIXIV_CLIENT_SECRET,
       callbackURL: "http://127.0.0.1:3000/auth/pixiv/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
+    (accessToken, refreshToken, profile, done) => {
       // asynchronous verification, for effect...
-      process.nextTick(function () {
+      process.nextTick(() => {
         // To keep the example simple, the user's pixiv profile is returned to
         // represent the logged-in user.  In a typical application, you would want
         // to associate the pixiv account with a user record in your database,
@@ -52,6 +55,9 @@ passport.use(
 
 const app = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // configure Express
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
@@ -60,24 +66,25 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
-app.use(session({ secret: "keyboard cat" }));
+app.use(
+  session({ secret: "keyboard cat", resave: false, saveUninitialized: true })
+);
 
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
 app.use(express.static(__dirname + "/public"));
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });
 
-app.get("/account", ensureAuthenticated, function (req, res) {
+app.get("/account", ensureAuthenticated, (req, res) => {
   res.render("account", { user: req.user });
 });
 
-app.get("/login", function (req, res) {
+app.get("/login", (req, res) => {
   res.render("login", { user: req.user });
 });
 
@@ -86,7 +93,7 @@ app.get("/login", function (req, res) {
 //   request.  The first step in pixiv authentication will involve redirecting
 //   the user to pixiv.net.  After authorization, pixiv will redirect the user
 //   back to this application at /auth/pixiv/callback
-app.get("/auth/pixiv", passport.authenticate("pixiv"), function (_req, _res) {
+app.get("/auth/pixiv", passport.authenticate("pixiv"), (_req, _res) => {
   // The request will be redirected to pixiv for authentication, so this
   // function will not be called.
 });
@@ -99,17 +106,21 @@ app.get("/auth/pixiv", passport.authenticate("pixiv"), function (_req, _res) {
 app.get(
   "/auth/pixiv/callback",
   passport.authenticate("pixiv", { failureRedirect: "/login" }),
-  function (req, res) {
+  (req, res) => {
     res.redirect("/");
   }
 );
 
-app.get("/logout", function (req, res, next) {
+app.get("/logout", (req, res, next) => {
   req.logout(next);
   res.redirect("/");
 });
 
-app.listen(3000);
+const PORT = 3000;
+
+app.listen(PORT, () => {
+  console.info(`[express] server is running on http://127.0.0.1:${PORT}`);
+});
 
 // Simple route middleware to ensure user is authenticated.
 //   Use this route middleware on any resource that needs to be protected.  If

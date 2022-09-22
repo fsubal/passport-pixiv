@@ -32,6 +32,7 @@
     "lib",
     "examples/login"
   ],
+  "type": "module",
   "main": "./lib",
   "babel": {
     "presets": [
